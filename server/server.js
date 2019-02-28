@@ -17,14 +17,14 @@ app.post('/todos', (req, res) => {
 		doc => res.send(doc),
 		err => res.status(400).send(err)
 	);
-})
+});
 
 app.get('/todos', (req, res) => {
 	Todo.
 	find()
 	.then(todos => res.send({todos}))
 	.catch(e => res.status(400).send(e));
-})
+});
 
 app.listen(3000, () => {
 	console.log('Listening on port 3000');
