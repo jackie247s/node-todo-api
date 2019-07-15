@@ -5,6 +5,7 @@ var _ = require('lodash');
 
 var mongoose = require('./db/mongoose');
 var { Todo, User } = require('./models');
+var authenticate = require('./middleware/authenticate');
 
 var app = express();
 
@@ -80,6 +81,10 @@ app.post('/users', (req, res) => {
 	.then(doc => user.generateAuthToken())
 	.then((token) => res.header('x-auth', token).send(user))
 	.catch(err => res.status(400).send(err));
+});
+
+app.get('/users/me', authenticate, (req, res) => {
+	res.send(req.user);
 });
 
 app.listen(3000, () => {
